@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GeoMaster: Europe & Russia</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -12,18 +14,14 @@
     <header>
       <h1>🌍 GeoMaster: <span>Europe & Russia</span></h1>
       <div class="filters">
-        <select id="difficulty-filter">
-          <option value="all">All Difficulties</option>
-          <option value="easy">Easy</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="hard">Hard</option>
-        </select>
-        <input type="color" id="bg-picker" />
-        <button onclick="changeBackground()">Change Background</button>
-        <button onclick="restartQuiz()">Restart Quiz</button>
+        <!-- Filters, buttons etc. -->
       </div>
     </header>
 
+    <!-- Globe Section -->
+    <div id="globe-container" style="width: 100%; height: 500px; margin-top: 20px;"></div>
+
+    <!-- Quiz Section -->
     <div id="quiz-wrapper"></div>
 
     <footer>
@@ -33,5 +31,10 @@
       <p id="score-display"></p>
     </footer>
   </div>
+
+  <!-- Add Three.js script here -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
+  <script defer src="script.js"></script>
 </body>
 </html>
