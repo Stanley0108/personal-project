@@ -1,22 +1,22 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #74ebd5, #acb6e5);
+  background: #e3f2fd;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  color: #222;
 }
 
 .glass-container {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 800px;
-  color: #fff;
+  max-width: 850px;
   text-align: center;
 }
 
@@ -26,17 +26,20 @@ header h1 {
 }
 
 header span {
-  color: #ffec99;
+  color: #0077ff;
 }
 
 .filters {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-select, button {
+select,
+button,
+input[type="color"] {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border-radius: 10px;
@@ -45,17 +48,17 @@ select, button {
 }
 
 button {
-  background-color: #3498db;
+  background-color: #0077ff;
   color: white;
   transition: background 0.3s ease;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #005fcc;
 }
 
 .quiz-question {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.4);
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -80,6 +83,6 @@ footer {
 #score-display {
   margin-top: 1rem;
   font-weight: bold;
-  color: #f1f1f1;
   font-size: 1.2rem;
+  color: #333;
 }
