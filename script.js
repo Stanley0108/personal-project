@@ -1,12 +1,76 @@
 let allQuestions = [
-  // Your quiz questions go here...
+  {
+    question: "What is the capital of Russia?",
+    options: ["Moscow", "Saint Petersburg", "Kiev", "Warsaw"],
+    answer: "Moscow"
+  },
+  {
+    question: "Which country is known as the 'Land of the Midnight Sun'?",
+    options: ["Norway", "Russia", "Finland", "Sweden"],
+    answer: "Norway"
+  },
+  {
+    question: "What is the longest river in Europe?",
+    options: ["Volga", "Danube", "Rhine", "Elbe"],
+    answer: "Volga"
+  },
+  {
+    question: "Which of the following is a Baltic state?",
+    options: ["Estonia", "Poland", "Norway", "Ireland"],
+    answer: "Estonia"
+  },
+  {
+    question: "Which mountain range separates Europe from Asia?",
+    options: ["Ural Mountains", "Carpathians", "Alps", "Pyrenees"],
+    answer: "Ural Mountains"
+  }
 ];
 
 let currentPage = 0;
-let score = 0;
-let totalQuestions = allQuestions.length;
 
-// Initialize the globe
+function renderQuestions() {
+  const quizContainer = document.getElementById("quiz-container");
+  quizContainer.innerHTML = '';
+
+  const currentQuestion = allQuestions[currentPage];
+  
+  const questionText = document.createElement('div');
+  questionText.classList.add('quiz-question');
+  questionText.textContent = currentQuestion.question;
+  
+  const optionsContainer = document.createElement('div');
+  optionsContainer.classList.add('quiz-options');
+  
+  currentQuestion.options.forEach(option => {
+    const optionButton = document.createElement('button');
+    optionButton.textContent = option;
+    optionButton.onclick = () => checkAnswer(option, currentQuestion.answer);
+    optionsContainer.appendChild(optionButton);
+  });
+
+  quizContainer.appendChild(questionText);
+  quizContainer.appendChild(optionsContainer);
+}
+
+function checkAnswer(selected, correctAnswer) {
+  if (selected === correctAnswer) {
+    alert("Correct!");
+  } else {
+    alert("Wrong answer. Try again!");
+  }
+
+  changePage(1); // Move to the next question
+}
+
+function changePage(direction) {
+  currentPage += direction;
+
+  if (currentPage < 0) currentPage = 0;
+  if (currentPage >= allQuestions.length) currentPage = allQuestions.length - 1;
+
+  renderQuestions(); // Re-render the current question
+}
+
 function initGlobe() {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -35,23 +99,6 @@ function initGlobe() {
   }
 
   animate();
-}
-
-function renderQuestions() {
-  // Add code to render your quiz questions dynamically here.
-}
-
-function changePage(direction) {
-  currentPage += direction;
-  if (currentPage < 0) currentPage = 0;
-  if (currentPage >= totalQuestions) currentPage = totalQuestions - 1;
-
-  renderQuestions(); // Render the questions for the new page
-}
-
-function submitQuiz() {
-  // Logic to calculate score here
-  alert(`Your score is: ${score}`);
 }
 
 window.onload = () => {

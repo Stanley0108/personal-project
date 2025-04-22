@@ -1,76 +1,96 @@
+/* General body styling */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #2d2d2d;
-  color: #f0f0f0;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
+  background: linear-gradient(135deg, #1a1a1a, #333);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  color: #fff;
   flex-direction: column;
 }
 
-.glass-container {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  width: 80%;
+/* Main container */
+.main-container {
+  width: 90%;
   max-width: 1200px;
   text-align: center;
 }
 
+/* Header */
 header h1 {
   font-size: 3rem;
-  color: #fff;
-  margin-bottom: 20px;
+  color: #4db8ff;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
 }
 
 header h1 span {
-  color: #4db8ff;
-}
-
-.filters {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-footer {
-  margin-top: 30px;
-}
-
-footer button {
-  padding: 10px 20px;
-  background-color: #4db8ff;
-  border: none;
   color: #fff;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px;
 }
 
-footer button:hover {
-  background-color: #3a99cc;
+.intro-text {
+  font-size: 1.2rem;
+  color: #ddd;
+  margin-top: 10px;
 }
 
+/* 3D Globe Section */
 #globe-container {
   width: 100%;
   height: 500px;
-  margin-top: 20px;
+  margin-top: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
-#quiz-wrapper {
-  margin-top: 20px;
+/* Quiz Section */
+#quiz-container {
+  margin-top: 30px;
 }
 
-#score-display {
+.quiz-question {
   font-size: 1.5rem;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
-#prev-btn, #next-btn {
-  margin: 10px;
+.quiz-options button {
+  background-color: #4db8ff;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  width: 60%;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.quiz-options button:hover {
+  background-color: #3a99cc;
+}
+
+/* Navigation Buttons */
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 30px;
+}
+
+.nav-btn {
+  background-color: #4db8ff;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: #3a99cc;
 }

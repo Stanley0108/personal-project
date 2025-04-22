@@ -10,31 +10,25 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="glass-container">
+  <div class="main-container">
     <header>
       <h1>🌍 GeoMaster: <span>Europe & Russia</span></h1>
-      <div class="filters">
-        <!-- Filters, buttons etc. -->
-      </div>
+      <p class="intro-text">Challenge yourself with a fun and interactive geography quiz!</p>
     </header>
 
-    <!-- Globe Section -->
-    <div id="globe-container" style="width: 100%; height: 500px; margin-top: 20px;"></div>
+    <!-- 3D Globe Section -->
+    <div id="globe-container"></div>
 
     <!-- Quiz Section -->
-    <div id="quiz-wrapper"></div>
+    <div id="quiz-container">
+      <!-- Quiz questions will be dynamically inserted here -->
+    </div>
 
-    <footer>
-      <button id="prev-btn" onclick="changePage(-1)">⬅️ Prev</button>
-      <button id="next-btn" onclick="changePage(1)">Next ➡️</button>
-      <button id="submit-btn" onclick="submitQuiz()">Submit Quiz ✅</button>
-      <p id="score-display"></p>
-    </footer>
+    <div class="navigation">
+      <button class="nav-btn" id="prev-btn" onclick="changePage(-1)">⬅️ Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="changePage(1)">Next ➡️</button>
+      <button class="nav-btn" id="submit-btn" onclick="submitQuiz()">Submit ✅</button>
+    </div>
   </div>
-
-  <!-- Add Three.js script here -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/controls/OrbitControls.js"></script>
-  <script defer src="script.js"></script>
 </body>
 </html>
