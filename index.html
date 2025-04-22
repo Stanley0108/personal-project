@@ -2,18 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Europe & Russia Geography Quiz</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoMaster: Europe & Russia</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🌍 Europe & Russia Geography Quiz</h1>
-    <div id="quiz-container"></div>
-    <button onclick="submitQuiz()">Submit Answers</button>
-    <p id="quiz-result"></p>
-  </div>
+  <div class="glass-container">
+    <header>
+      <h1>🌍 GeoMaster: <span>Europe & Russia</span></h1>
+      <div class="filters">
+        <select id="difficulty-filter">
+          <option value="all">All Difficulties</option>
+          <option value="easy">Easy</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="hard">Hard</option>
+        </select>
+        <button onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </header>
 
-  <script src="script.js"></script>
+    <div id="quiz-wrapper"></div>
+
+    <footer>
+      <button id="prev-btn" onclick="changePage(-1)">⬅️ Prev</button>
+      <button id="next-btn" onclick="changePage(1)">Next ➡️</button>
+      <button id="submit-btn" onclick="submitQuiz()">Submit Quiz ✅</button>
+      <p id="score-display"></p>
+    </footer>
+  </div>
 </body>
 </html>

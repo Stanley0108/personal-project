@@ -1,64 +1,96 @@
-const quizData = [
-    // Hard
-    { question: "Kaliningrad is an exclave of which country?", options: ["Poland", "Russia", "Germany", "Lithuania"], answer: "Russia" },
-    { question: "Which mountain range separates Europe and Asia in Russia?", options: ["Carpathians", "Alps", "Urals", "Caucasus"], answer: "Urals" },
-    { question: "What is the name of the Russian region known for permafrost and extreme cold?", options: ["Siberia", "Ural", "Chechnya", "Karelia"], answer: "Siberia" },
-    { question: "Which is the largest lake in Europe, located in Russia?", options: ["Lake Baikal", "Lake Ladoga", "Lake Onega", "Caspian Sea"], answer: "Lake Ladoga" },
-    { question: "Which sea borders both Europe and Russia?", options: ["Baltic Sea", "Black Sea", "Barents Sea", "All of them"], answer: "All of them" },
-    { question: "Which Russian city is known as the cultural capital?", options: ["Moscow", "St. Petersburg", "Yekaterinburg", "Sochi"], answer: "St. Petersburg" },
-    { question: "In which country is the city of Sarajevo located?", options: ["Croatia", "Serbia", "Bosnia and Herzegovina", "Montenegro"], answer: "Bosnia and Herzegovina" },
-    { question: "Which European country uses the lek as its currency?", options: ["Serbia", "Albania", "Bulgaria", "North Macedonia"], answer: "Albania" },
-    { question: "What is the smallest country in Europe by area?", options: ["San Marino", "Liechtenstein", "Vatican City", "Monaco"], answer: "Vatican City" },
-    { question: "Which Russian city hosted the 2014 Winter Olympics?", options: ["Moscow", "Sochi", "Kazan", "Novosibirsk"], answer: "Sochi" },
-  
-    // Easy
-    { question: "What is the capital of Russia?", options: ["St. Petersburg", "Moscow", "Kazan", "Novosibirsk"], answer: "Moscow" },
-    { question: "Which country is shaped like a boot?", options: ["Spain", "Greece", "Italy", "Croatia"], answer: "Italy" },
-    { question: "Which continent is Europe part of?", options: ["Eurasia", "Asia", "Africa", "America"], answer: "Eurasia" },
-    { question: "Which country is west of Germany?", options: ["Poland", "Austria", "France", "Czech Republic"], answer: "France" },
-    { question: "Which country has London as its capital?", options: ["France", "United Kingdom", "Ireland", "Scotland"], answer: "United Kingdom" },
-    { question: "Which country is famous for its fjords?", options: ["Sweden", "Norway", "Finland", "Denmark"], answer: "Norway" },
-    { question: "What is the currency of most European Union countries?", options: ["Dollar", "Pound", "Euro", "Franc"], answer: "Euro" },
-    { question: "Which city is the capital of France?", options: ["Paris", "Nice", "Lyon", "Marseille"], answer: "Paris" },
-    { question: "Which country shares borders with Russia and has a capital named Minsk?", options: ["Ukraine", "Estonia", "Belarus", "Latvia"], answer: "Belarus" },
-    { question: "Which sea is located south of Ukraine?", options: ["Baltic Sea", "Barents Sea", "Black Sea", "North Sea"], answer: "Black Sea" },
-  
-    // Intermediate
-    { question: "Which river flows through Budapest?", options: ["Danube", "Volga", "Thames", "Seine"], answer: "Danube" },
-    { question: "Which country is famous for tulips and windmills?", options: ["Belgium", "Netherlands", "France", "Austria"], answer: "Netherlands" },
-    { question: "Which country has the most volcanoes in mainland Europe?", options: ["France", "Iceland", "Italy", "Russia"], answer: "Italy" },
-    { question: "Which country borders both the Atlantic Ocean and the Mediterranean Sea?", options: ["Italy", "Portugal", "Spain", "Greece"], answer: "Spain" },
-    { question: "Which is the longest river in Europe?", options: ["Danube", "Volga", "Rhine", "Dnieper"], answer: "Volga" }
-  ];
-  
-  function loadQuiz() {
-    const quizContainer = document.getElementById("quiz-container");
-    quizContainer.innerHTML = "";
-    quizData.forEach((q, index) => {
-      const questionEl = document.createElement("div");
-      questionEl.classList.add("quiz-question");
-      questionEl.innerHTML = `
-        <p>${index + 1}. ${q.question}</p>
-        ${q.options.map(opt => `
-          <label>
-            <input type="radio" name="q${index}" value="${opt}"> ${opt}
-          </label>`).join("")}
-      `;
-      quizContainer.appendChild(questionEl);
-    });
+let allQuestions = [
+  { difficulty: "easy", question: "What is the capital of France?", options: ["Paris", "London", "Rome", "Berlin"], answer: "Paris" },
+  { difficulty: "easy", question: "Which river runs through Budapest?", options: ["Danube", "Volga", "Rhine", "Elbe"], answer: "Danube" },
+  { difficulty: "intermediate", question: "Which exclave belongs to Russia between Poland and Lithuania?", options: ["Kaliningrad", "Kazan", "Vladivostok", "Yekaterinburg"], answer: "Kaliningrad" },
+  { difficulty: "hard", question: "What mountain range separates Europe and Asia?", options: ["Ural Mountains", "Alps", "Caucasus", "Carpathians"], answer: "Ural Mountains" },
+  { difficulty: "easy", question: "What is the currency used by most European Union countries?", options: ["Euro", "Dollar", "Pound", "Franc"], answer: "Euro" },
+  { difficulty: "intermediate", question: "Which country left the European Union in 2020?", options: ["United Kingdom", "Norway", "Switzerland", "Turkey"], answer: "United Kingdom" },
+  { difficulty: "hard", question: "Which Russian lake is the deepest in the world?", options: ["Lake Baikal", "Caspian Sea", "Lake Ladoga", "Lake Onega"], answer: "Lake Baikal" },
+  { difficulty: "easy", question: "What is the capital of Germany?", options: ["Berlin", "Munich", "Hamburg", "Frankfurt"], answer: "Berlin" },
+  { difficulty: "intermediate", question: "Which European river is the longest?", options: ["Volga", "Danube", "Rhine", "Seine"], answer: "Volga" },
+  { difficulty: "hard", question: "Which region of Russia is known for extreme cold and permafrost?", options: ["Siberia", "Caucasus", "Kaliningrad", "Ural"], answer: "Siberia" }
+  // You can add more to reach 25+ total
+];
+
+let currentPage = 0;
+const QUESTIONS_PER_PAGE = 5;
+let userAnswers = {};
+
+function renderQuestions() {
+  const quizWrapper = document.getElementById("quiz-wrapper");
+  const filter = document.getElementById("difficulty-filter").value;
+  let filtered = allQuestions;
+  if (filter !== "all") {
+    filtered = allQuestions.filter(q => q.difficulty === filter);
   }
-  
-  function submitQuiz() {
-    let score = 0;
-    quizData.forEach((q, index) => {
-      const selected = document.querySelector(`input[name="q${index}"]:checked`);
-      if (selected && selected.value === q.answer) {
+
+  const start = currentPage * QUESTIONS_PER_PAGE;
+  const pageQuestions = filtered.slice(start, start + QUESTIONS_PER_PAGE);
+  quizWrapper.innerHTML = "";
+
+  pageQuestions.forEach((q, i) => {
+    const globalIndex = start + i;
+    const qEl = document.createElement("div");
+    qEl.className = "quiz-question";
+    qEl.innerHTML = `<p>${globalIndex + 1}. ${q.question}</p>
+      ${q.options.map(opt => `
+        <label>
+          <input type="radio" name="q${globalIndex}" value="${opt}" ${userAnswers[`q${globalIndex}`] === opt ? "checked" : ""}> ${opt}
+        </label>
+      `).join("")}`;
+    quizWrapper.appendChild(qEl);
+  });
+
+  document.getElementById("prev-btn").style.display = currentPage === 0 ? "none" : "inline-block";
+  document.getElementById("next-btn").style.display = (start + QUESTIONS_PER_PAGE >= filtered.length) ? "none" : "inline-block";
+  document.getElementById("submit-btn").style.display = (start + QUESTIONS_PER_PAGE >= filtered.length) ? "inline-block" : "none";
+}
+
+function changePage(delta) {
+  saveAnswers();
+  currentPage += delta;
+  renderQuestions();
+}
+
+function saveAnswers() {
+  const inputs = document.querySelectorAll("input[type='radio']:checked");
+  inputs.forEach(input => {
+    userAnswers[input.name] = input.value;
+  });
+}
+
+function submitQuiz() {
+  saveAnswers();
+  let score = 0;
+  let total = 0;
+  allQuestions.forEach((q, i) => {
+    if (document.getElementById("difficulty-filter").value === "all" || document.getElementById("difficulty-filter").value === q.difficulty) {
+      total++;
+      if (userAnswers[`q${i}`] === q.answer) {
         score++;
       }
-    });
-    const resultEl = document.getElementById("quiz-result");
-    resultEl.textContent = `You scored ${score} out of ${quizData.length}!`;
-    resultEl.style.color = score >= quizData.length / 2 ? "green" : "red";
+    }
+  });
+  document.getElementById("score-display").textContent = `You scored ${score} out of ${total}!`;
+  localStorage.setItem("lastScore", score);
+}
+
+function restartQuiz() {
+  currentPage = 0;
+  userAnswers = {};
+  renderQuestions();
+  document.getElementById("score-display").textContent = "";
+}
+
+document.getElementById("difficulty-filter").addEventListener("change", () => {
+  currentPage = 0;
+  renderQuestions();
+});
+
+window.onload = () => {
+  renderQuestions();
+  const saved = localStorage.getItem("lastScore");
+  if (saved) {
+    document.getElementById("score-display").textContent = `Last score: ${saved}`;
   }
-  
-  window.onload = loadQuiz;
+};
