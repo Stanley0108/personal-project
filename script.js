@@ -48,56 +48,6 @@ let allQuestions = [
     question: "Which mountain range separates Europe and Asia?",
     options: ["Himalayas", "Alps", "Ural Mountains", "Pyrenees"],
     answer: "Ural Mountains"
-  },
-  {
-    question: "Which country is known for the Eiffel Tower?",
-    options: ["Germany", "Italy", "France", "Spain"],
-    answer: "France"
-  },
-  {
-    question: "What is the official language of Portugal?",
-    options: ["Spanish", "Portuguese", "French", "Italian"],
-    answer: "Portuguese"
-  },
-  {
-    question: "Which country has the most islands in the world?",
-    options: ["Canada", "Sweden", "Finland", "Norway"],
-    answer: "Sweden"
-  },
-  {
-    question: "What is the largest city in Russia?",
-    options: ["Saint Petersburg", "Novosibirsk", "Moscow", "Vladivostok"],
-    answer: "Moscow"
-  },
-  {
-    question: "Which of these countries is landlocked?",
-    options: ["Italy", "Hungary", "France", "Portugal"],
-    answer: "Hungary"
-  },
-  {
-    question: "Which country is famous for its windmills and tulips?",
-    options: ["Belgium", "Netherlands", "Germany", "Denmark"],
-    answer: "Netherlands"
-  },
-  {
-    question: "Which is the largest island in Europe?",
-    options: ["Great Britain", "Iceland", "Sicily", "Corsica"],
-    answer: "Great Britain"
-  },
-  {
-    question: "What is the official language of Switzerland?",
-    options: ["German", "French", "Italian", "All of the above"],
-    answer: "All of the above"
-  },
-  {
-    question: "Which country is known as the Land of the Midnight Sun?",
-    options: ["Finland", "Norway", "Sweden", "Iceland"],
-    answer: "Norway"
-  },
-  {
-    question: "Which European country has the most UNESCO World Heritage Sites?",
-    options: ["Italy", "France", "Germany", "Spain"],
-    answer: "Italy"
   }
 ];
 
@@ -106,11 +56,11 @@ let score = 0;
 
 function renderQuestions() {
   const questionContainer = document.getElementById('quiz-container');
-  questionContainer.innerHTML = ''; // Clear previous content
+  questionContainer.innerHTML = '';
   
   if (currentPage >= allQuestions.length) {
-    questionContainer.innerHTML = `<h2>Quiz Completed!</h2><p>Your Score: ${score} / 100</p>`;
-    document.getElementById('submit-btn').style.display = 'none'; // Hide submit button after quiz is done
+    questionContainer.innerHTML = `<h2>Quiz Completed!</h2><p>Your Score: ${score} / ${allQuestions.length * 20}</p>`;
+    document.getElementById('submit-btn').style.display = 'none';
     return;
   }
 
@@ -128,13 +78,12 @@ function renderQuestions() {
 
 function checkAnswer(selectedAnswer) {
   const correctAnswer = allQuestions[currentPage].answer;
-  
   if (selectedAnswer === correctAnswer) {
-    score += 20; // Each correct answer is worth 20 points
+    score += 20;
+    document.getElementById('score').textContent = `Score: ${score}`;
   }
-
   currentPage++;
-  renderQuestions(); // Move to the next question
+  renderQuestions();
 }
 
 function changePage(direction) {
@@ -145,12 +94,15 @@ function changePage(direction) {
 }
 
 function submitQuiz() {
-  alert(`Quiz Submitted! Your final score is: ${score} / 100`);
-  score = 0;  // Reset score after submission
-  currentPage = 0;  // Restart the quiz
-  renderQuestions();  // Restart the quiz view
+  alert(`Quiz Submitted! Your final score is: ${score} / ${allQuestions.length * 20}`);
+  score = 0;
+  currentPage = 0;
+  renderQuestions();
 }
 
 window.onload = () => {
-  renderQuestions(); // Start the quiz
+  renderQuestions();
+  window.addEventListener('resize', () => {
+    document.body.style.fontSize = window.innerWidth < 500 ? '14px' : '16px';
+  });
 };
